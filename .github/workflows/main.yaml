@@ -1,1 +1,11 @@
+name: test
 
+on: push
+
+jobs:
+  test:
+    runs-on: self-hosted
+    steps: 
+    - name: install
+      run: |
+      pwd
