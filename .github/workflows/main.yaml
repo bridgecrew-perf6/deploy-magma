@@ -6,6 +6,21 @@ jobs:
   test:
     runs-on: self-hosted
     steps: 
-    - name: install
+    - name: install ansible
       run: |
-      pwd
+        sudo apt remove ansible
+        sudo apt update
+        sudo apt install software-properties-common
+        sudo add-apt-repository --yes --update ppa:ansible/ansible
+        sudo apt install ansible -y
+        
+    - name: ansible collection
+      run: ansible-galaxy collection install -U shubhamtatvamasi.magma
+      
+    - name: clone code
+      run: git clone https://github.com/nitinrajput1997/magma-galaxy
+      
+    - name: deploy magma orc8r
+      run: |
+        cd magma-galaxy
+        ansible-playbook deploy-orc8r.yml
